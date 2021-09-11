@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+void square(long long n){
+    long long sq = sqrt(n);
+    if(sq*sq == n){
+        cout<<"YES"<<"\n";
+    }
+    else{
+        cout<<"NO"<<"\n";
+    }
+}
+void cube(long long n){
+     long long cb = cbrt(n);
+    if(cb*cb*cb == n){
+        cout<<"YES"<<"\n";
+    }
+    else{
+        cout<<"NO"<<"\n";
+    }  
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int q,n;
+        cin>>q>>n;
+        if(q==1){
+            square(n);
+        }
+        else{
+            cube(n);
+        }
+    }
+}

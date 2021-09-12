@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        int q;
+        cin>>q;
+        vector<int>v;
+        while(q--){
+            string s;
+            cin>>s;
+            if(s=="add"){
+                int n;
+                cin>>n;
+                v.push_back(n);
+            }
+            else if(s=="remove"){
+                if(!v.empty())
+                    v.pop_back();
+            }
+            else if(s=="print"){
+                 int l;
+                 cin>>l;
+                if(l<(int)v.size())
+                    cout<<v[l]<<"\n";
+                else
+                    cout<<"0\n";
+            }
+            else if(s=="clear"){
+                v.clear();
+            }
+            
+        }
+    }
+ 
+      
+	return 0;
+}

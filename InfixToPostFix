@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+int prec(char x){
+    if(x=='^'){
+        return 3;
+    }
+    else if(x=='*'||x=='/'){
+        return 2;
+    }
+    else if(x=='+'||x=='-'){
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    string s,postfix;
+	    cin>>s;
+	    stack<char> st;
+	    for(int i=0;i<s.size();++i){
+	        if(s[i]>='a' && s[i]<='z'){
+	           postfix +=s[i];
+	        }
+	        else if(s[i]=='('){
+	            st.push(s[i]);
+	        }
+	        else if(s[i]==')'){
+	            while(!st.empty() && st.top()!='('){
+    	            postfix +=st.top();
+    	            st.pop();
+	            }
+	            if(!st.empty() && st.top()=='('){
+	                st.pop();
+	            }
+	        }
+	        else{
+	            while(!st.empty() && prec(s[i])<=prec(st.top())){
+	                postfix +=st.top();
+	                st.pop();
+	            }
+                st.push(s[i]);
+	        }
+	    }
+	    while(!st.empty()){
+	        postfix +=st.top();
+	        st.pop();
+	    }
+	    cout<<postfix<<"\n";
+	}
+	return 0;
+}

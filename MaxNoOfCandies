@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int countCandies(int a[] ,int n , int b){
+    int count=0;
+    for(int i=0;i<n;++i){
+        if(a[i]<=b){
+        count++;
+        b-=a[i];
+        }
+    }
+    
+    return count;
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n,b;
+        cin>>n>>b;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+        }
+        sort(a,a+n);
+        int noCd=countCandies(a , n , b);
+        cout<<noCd<<"\n";
+        
+    }
+}

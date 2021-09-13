@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+         int q;
+         stack <int>st;
+         cin>>q;
+         
+         while(q--){
+             string s;
+             cin>>s;
+             if(s=="add"){
+                 int n; cin>>n;
+                 st.push(n);
+             }
+             else if(s=="remove"){
+                 if(!st.empty()){
+                     st.pop();
+                 }
+             }
+             else{
+                 if(!st.empty()){
+                     cout<<st.top()<<"\n";
+                 }
+                 else{
+                     cout<<"0"<<"\n";
+                 }
+             }
+         }
+        
+    }
+}

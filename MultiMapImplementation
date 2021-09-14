@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        //ios::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+        multiset<int>st;
+        int q;
+        cin>>q;
+        while(q--){
+            string s;
+            cin>>s;
+            if(s=="add"){
+                int x;
+                cin>>x;
+               st.insert(x); 
+            }
+            else if(s=="erase"){
+                int x;
+                cin>>x;
+                st.erase(st.find(x));
+            }
+            else if(s=="eraseall"){
+                int x;
+                cin>>x;
+                if(st.count(x))
+                     st.erase(x);
+            }
+            else if(s=="find"){
+                int x;
+                cin>>x;
+                if(st.find(x)!=st.end())
+                    cout<<"YES\n";
+                else
+                    cout<<"NO\n";
+            }
+            else if(s=="count"){
+                int x;
+                cin>>x;
+                 
+                cout<<st.count(x)<<"\n";
+            }
+            else if(s=="print"){
+                for(auto i:st){
+                    cout<<i<<" ";
+                }
+                cout<<"\n";
+            }
+            else {
+                st.clear();
+            }
+        }
+    }
+    return 0;
+}

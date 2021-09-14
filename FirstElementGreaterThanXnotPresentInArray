@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+    int t;
+    cin>>t;
+    while(t--){
+        set<int>st,st2;
+        int q;
+        cin>>q;
+        while(q--){
+            int n,x;
+            cin>>n>>x;
+            if(n==1){
+                st.insert(x);
+                st2.erase(x);
+                if(!st.count(x+1))
+                    st2.insert(x+1);
+            }
+            else{
+                 
+                if(!st.count(x)){
+                    cout<<x<<"\n";
+                }  
+                else
+                    cout<<*st2.lower_bound(x)<<"\n";
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,m;
+	    cin>>n>>m;
+	     set<int>uni,intr,diff;
+	    for(int i=0;i<n;++i){
+	        int x;
+	        cin>>x;
+	        uni.insert(x);
+	        intr.insert(x);
+	        diff.insert(x);
+	    }
+	    set<int>intersect;
+	    for(int i=0;i<m;++i){
+	        int x;
+	        cin>>x;
+	        uni.insert(x);
+	        if(intr.find(x)!=intr.end())
+	            intersect.insert(x);
+            if(diff.find(x)!=diff.end())
+                diff.erase(x);
+	        
+	    }
+	    for(auto i : uni){
+	        cout<<i<<" ";
+	    } 
+	    cout<<"\n";
+	    for(auto i : intersect){
+	        cout<<i<<" ";
+	    } 
+	    cout<<"\n";\
+	    for(auto i : diff){
+	        cout<<i<<" ";
+	    } 
+	    cout<<"\n";
+	    
+	}
+	return 0;
+}

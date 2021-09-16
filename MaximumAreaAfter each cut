@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int h,w,n;
+	    cin>>h>>w>>n;
+	    set<int>hori,vert;
+	    multiset<int>h1,v1;
+	    hori.insert(0);
+	    hori.insert(h);
+	    vert.insert(0);
+	    vert.insert(w);
+	    h1.insert(h);
+	    v1.insert(w);
+	    while(n--){
+	        char ch;
+	        int x;
+	        cin>>ch>>x;
+	        if(ch=='H'){
+	             hori.insert(x);
+	             auto it= hori.lower_bound(x);
+	             auto it1=it,it2=it;
+	             it1--;it2++;
+	             h1.erase(h1.find(*it2 - *it1));
+	             h1.insert(*it - *it1);
+	             h1.insert(*it2 - *it);
+	        }
+	        else{
+	            vert.insert(x);
+	             auto it= vert.lower_bound(x);
+	             auto it1=it,it2=it;
+	             it1--;it2++;
+	             v1.erase(v1.find(*it2 - *it1));
+	             v1.insert(*it - *it1);
+	             v1.insert(*it2 - *it);
+	        }
+	        int ans = (*prev(h1.end()))*(*prev(v1.end()));
+	        cout<<ans<<"\n";
+	    }
+	}
+	return 0;
+}

@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+  ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);  
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,x;
+	    cin>>n;
+	    multiset<int>st;
+	    int cost=0;
+	    for(int i=0;i<n;++i){
+	        cin>>x;
+	        st.insert(x);
+	    }
+	         while(st.size()> 1){
+	         int it1= *st.begin() ;
+             st.erase(st.begin());
+	         int it2=*st.begin();
+             st.erase(st.begin());
+	         cost+=it1+it2;
+	         st.insert(it1 + it2);
+	         }
+	    cout<<cost<<"\n";
+	}
+	return 0;
+}

@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,k;
+	    cin>>n>>k;
+	    map<int,int>mp; 
+	    vector<int>v;
+	    for(int i=0;i<n;++i){
+	        int x;
+	        cin>>x;
+	        v.push_back(x);
+	        mp[x]++;
+	    }
+	    int count=0;
+	    for(int i=0;i<n;++i){
+	         mp[v[i]]--;
+	         count+=mp[v[i]+k];
+	         count+=mp[v[i]-k];
+	    }
+	    cout<<count<<"\n";
+	}
+	return 0;
+}

@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,q;
+	    cin>>n>>q;
+	    queue<int>qn[n+1];
+	    queue<pair<int,int>>qanqn;
+	    int current=0;
+        bool mark[q+1]={};
+        int i=0;
+	    while(q--){
+	        int z,x;
+	        cin>>z>>x;
+	         
+	        if(z==1){
+	            qn[x].push(i);
+	            qanqn.push({i,x});
+	            current++;
+	            i++;
+	        }
+	        else if(z==2){
+	                while(!qn[x].empty()){
+	                    int y=qn[x].front();
+                        mark[y]=1;
+                        current--;
+	                }
+	        }
+	        else if(z==3){
+	            while(x--){
+	                int a=qanqn.front().first;
+	                int b=qanqn.front().second;
+	                qanqn.pop();
+	                if(!mark[a]){
+	                    mark[a]=1;
+	                    qn[b].pop();
+	                    current--;
+	                }
+	            }
+	        }
+	        cout<<current<<"\n";
+	    }
+	}
+	return 0;
+}

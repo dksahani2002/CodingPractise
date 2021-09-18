@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,m;
+	    cin>>n>>m;
+	    multiset<int>mp,mp1;
+	    vector<int>v(n+m);
+	    for(int i=0;i<n;i++){
+	        int x,u;
+	        cin>>x>>u;
+	        mp.insert(x*u);
+	    }
+	    for(int i=0;i<m;i++){
+	        int y,v;
+	        cin>>y>>v;
+	        mp1.insert(v*y);
+	    }
+	   auto it=set_intersection(mp.begin(),mp.end(),mp1.begin(),mp1.end(),v.begin());
+	   v.resize(it-v.begin());
+	   cout<<v.size()<<"\n";
+	}
+	return 0;
+}

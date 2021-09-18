@@ -1,0 +1,120 @@
+#include <bits/stdc++.h>
+using namespace std;
+set<pair<int,int>>h[50005],v[50005];
+void add(int x,int y){
+    auto it1=v[y].lower_bound({x+1,-1});
+    auto it2=it1;
+    --it2;
+    pair<int,int>nxt=*it1,prev=*it2;
+    if(prev.second+2==nxt.first){
+        v[y].erase(prev);
+        v[y].erase(nxt);
+        v[y].insert({prev.first,nxt.second});
+    }
+    else if(x==prev.second+1){
+        v[y].erase(prev);
+        ++prev.second;
+        v[y].insert(prev);
+    }
+    else if(x==nxt.first-1){
+        v[y].erase(nxt);
+        --nxt.first;
+        v[y].insert(nxt);
+    }
+    else{
+        v[y].insert({x,x});
+    }
+     it1=h[x].lower_bound({y+1,-1});
+     it2=it1;
+    --it2;
+    nxt=*it1,prev=*it2;
+    if(prev.second+2==nxt.first){
+        h[x].erase(prev);
+        h[x].erase(nxt);
+        h[x].insert({prev.first,nxt.second});
+    }
+    else if(y==prev.second+1){
+        h[x].erase(prev);
+        ++prev.second;
+        h[x].insert(prev);
+    }
+    else if(y==nxt.first-1){
+        h[x].erase(nxt);
+        --nxt.first;
+        h[x].insert(nxt);
+    }
+    else{
+        h[x].insert({y,y});
+    }
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,r,c,x,y;
+	    cin>>n>>r>>c>>x>>y;
+	    for(int i=1;i<=r;++i){
+	        h[i].clear();
+	        h[i].insert({0,0});
+	        h[i].insert({c+1,c+1});
+	    }
+	    for(int i=1;i<=c;++i){
+	        v[i].clear();
+	        v[i].insert({0,0});
+	        v[i].insert({r+1,r+1});
+	    }
+	    h[y].insert({x,x});
+	    v[x].insert({y,y});
+	    while(n--){
+	        char c;
+	        cin>>c;
+	        if(c=='N'){
+	            x--;
+	            auto it=v[y].lower_bound({x+1,-1});
+	            it--;
+	            if(x>it->second)
+	                add(x,y);
+                else{
+                    x=it->first-1;
+                    add(x,y);
+                }
+	        }
+	        else if(c=='S'){
+	            x++;
+	            auto it=v[y].lower_bound({x+1,-1});
+	            it--;
+	            if(x>it->second)
+	                add(x,y);
+                else{
+                    x=it->second+1;
+                    add(x,y);
+                }
+	        }
+	        else if(c=='W'){
+	            y--;
+	            auto it=h[x].lower_bound({y+1,-1});
+	            it--;
+	            if(y>it->second)
+	                add(x,y);
+                else{
+                    y=it->first-1;
+                    add(x,y);
+                }
+	        }
+	        else{
+	            y++;
+	            auto it=h[x].lower_bound({y+1,-1});
+	            it--;
+	            if(y>it->second)
+                    add(x,y);
+                else{
+                    y=it->second+1;
+                    add(x,y);
+                }
+	        }
+	        
+	    }
+	    cout<<x<<" "<<y<<"\n";
+	}
+	return 0;
+}

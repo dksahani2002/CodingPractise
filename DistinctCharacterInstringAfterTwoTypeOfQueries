@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    int q;
+	    cin>>q;
+        set<int>st[26];
+        for(int i=0;i<s.size();++i){
+            st[s[i]-'a'].insert(i+1);
+        }
+	    while(q--){
+	        int n,i,l,r;
+	        char c;
+	        cin>>n;
+	        if(n==1){
+	            cin>>i>>c;
+	            st[s[i-1]-'a'].erase(i);
+                st[c-'a'].insert(i);
+                s[i- 1]=c;
+	        }
+	        else if(n==2){
+	            cin>>l>>r;
+	             int ans=0;
+                for(int i=0;i<26;++i){
+                    auto it=st[i].lower_bound(l);
+                    if(it==st.end())
+                        continue;
+                    else if(*it>=l && *it<=r)
+                        ans++;
+                }
+	            cout<<ans<<"\n";
+	            //cout<<endl;
+	        }
+	    }
+	}
+	return 0;
+}

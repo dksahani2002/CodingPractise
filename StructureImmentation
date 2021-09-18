@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+class mystruct{
+    private:
+        multiset<int>st,st2;
+        int sum;
+        int k;
+    public:
+        mystruct(int k): k(k), sum(0ll){};
+        
+        void add(int x){
+            st.insert(x);
+            sum+=x;
+            if((int)st.size()>k){
+                sum-=*(st.begin());
+                st2.insert(*(st.begin()));
+                st.erase(st.begin());
+            }
+          return;
+        }
+        void remove(int x){
+            if(st2.find(x)!=st2.end()){
+                st2.erase(st2.find(x));
+               
+            }
+            else if(st.find(x)!=st.end()){
+                sum-=x;
+                st.erase(st.find(x));
+                if(st2.empty())return;
+                int y=*(st2.rbegin());
+                sum+=y;
+                st.insert(y);
+                st2.erase(st2.find(y));
+            }
+            return;
+        }
+         
+        int getsum(){
+             return sum;
+        }
+};
+signed main() {
+	int q,k;
+	cin>>q>>k;
+	mystruct M(k);
+	while(q--){
+	    int t;
+	    cin>>t;
+	    if(t==1){
+	        int x;cin>>x;
+	        M.add(x);
+	    }
+	    else if(t==2){
+	        int x;cin>>x;
+	        M.remove(x);
+	    }
+	     
+	    else if(t==3){
+	        char c;cin>>c;
+	        cout<<M.getsum()<<"\n";
+	    }
+	     
+	}
+	return 0;
+}

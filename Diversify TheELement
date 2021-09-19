@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,k;
+	    cin>>n>>k;
+	    map<int,int>mp;
+	    for(int i=0;i<n;++i){
+	        int x;
+	        cin>>x;
+	        mp[x]++;
+	    }
+	    priority_queue<pair<int,int>>pq;
+	    int ans=1ll*n*(n-1)/2;
+	    for(auto i:mp){
+	        if(i.second>1){
+	            pq.push({i.second,i.first});
+	            ans-= 1ll*i.second*(i.second-1)/2;
+	        }
+	    }
+	    for(int i=0;i<k;++i){
+	        if(pq.empty())break;
+	        auto it=pq.top();
+	        ans+=it.first-1;
+	        pq.pop();
+	        it.first--;
+	        if(it.first>1)pq.push(it);
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}

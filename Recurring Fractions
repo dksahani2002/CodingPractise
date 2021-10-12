@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define LD long double
+const int N=100010;
+
+int inf=1e9;
+int mod=1e9+7;
+string solve(int numerator , int denominator){
+    bool isNeg=false;
+    if(numerator<0) isNeg^=1;
+    if(denominator<0)isNeg^=1;
+    if(!numerator)isNeg=false;
+    ll num=abs(numerator);
+    ll denom=abs(denominator);
+    string ans="";
+    if(isNeg)ans="-";
+    ll intPart=num/denom;
+    ans+=to_string(intPart);
+    num%=denom;
+    if(!num)return ans;
+    unordered_map <ll,int>decPos;
+    ans+=".";
+    int recPos=-1;
+    while(true){
+        if(!num)break;
+        ll temp=num*10;
+        if(decPos.find(num)!=decPos.end()){
+            recPos=decPos[num];
+            break;
+        }
+        decPos[num]=(int)ans.length();
+        intPart=temp/denom;
+        ans+=to_string(intPart);
+        num=temp%denom;
+    }
+    if(recPos!=-1){
+        int len=(int)ans.length();
+        ans=ans.substr(0,recPos)+"(" + ans.substr(recPos,len-recPos)+")";
+    }
+    return ans;
+}
+signed main(){
+    int t;cin>>t;
+    while(t--){
+        int num,den;
+        cin>>num>>den;
+        cout<<solve(num,den)<<"\n";
+    }
+    return 0;
+}
+    
+    
+    

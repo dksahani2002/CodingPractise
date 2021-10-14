@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,k;
+vector<int>arr;
+
+int check(int x){
+    int needpainter=0;
+    int lastleft=0;
+    for(int i=1;i<n;i++){
+        if(arr[i]<=lastleft){
+            lastleft-=arr[i];
+        }
+        else{
+            needpainter++;
+            lastleft=x-arr[i];
+            if(lastleft<0){
+                return ;
+            }
+        }
+ 
+    }
+    return needpainter<=k;
+}
+void solve(){
+    cin>>n>>k;
+    arr.resize(n);
+    int tot=0;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        tot+=arr[i];
+    }
+     
+    int lo=*max_element(arr.begin(),arr.end());
+    int hi=tot;
+    int ans=tot;
+    while(lo<=hi){
+        int mid=(lo+hi)/2;
+        if(check(mid)){
+            ans=mid;
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    cout<<ans<<endl;
+}
+int main() {
+	cout<<"GfG!";
+	return 0;
+}

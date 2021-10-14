@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,k;
+vector<int>arr;
+
+int check(int x){
+    int need=0;
+    for(int i=1;i<n;i++){
+        int d=arr[i]-arr[i-1];
+        need+=(d+x-1)/x-1;
+    }
+    return need<=k;
+}
+void solve(){
+    cin>>n>>k;
+    arr.resize(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int maxi=0;
+    for(int i=0;i<n;i++){
+        maxi=max(arr[i]-arr[i-1],maxi);
+    }
+    int lo=1;
+    int hi=maxi;
+    int ans=maxi;
+    while(lo<=hi){
+        int mid=(lo+hi)/2;
+        if(check(mid)){
+            ans=mid;
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    cout<<ans<<endl;
+}
+int main() {
+	cout<<"GfG!";
+	return 0;
+}

@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int n,s;
+int check(int x){
+     int temp=x,sum=0;
+     while(temp>0){
+         sum+=temp%10;
+         temp/=10;
+     }
+     return (x-sum)>=s;
+}
+signed main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    cin>>n>>s;
+	    int l=1;
+	    int r=n;
+	    int ans=0;
+	    while(l<=r){
+	        int mid=l+(r-l)/2;
+	        if(check(mid)){
+	            r=mid-1;
+	            
+	        }
+	        else{
+	            ans=mid;
+	            l=mid+1;
+	        }
+	    }
+	    cout<<n-ans<<"\n";
+	}
+	return 0;
+}

@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,q,k;
+int peak;
+int a[100010];
+int check(int mid){
+    if(a[mid]>a[mid-1])return 1;
+    else return 0;
+}    
+ 
+int main() {
+	int t;cin>>t;
+	while(t--){ 
+	    cin>>n>>q; 
+	    int t=0;
+	    while(t<n){
+	        cin>>a[t];
+	        t++;
+	    }
+        
+        peak=0;
+        int l=1,r=n-1; 
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(check(mid)){
+                peak=mid;
+                l=mid+1;
+
+            }
+            else{
+               r=mid-1; 
+            }
+        }
+        
+	    while(q--){
+            vector<int>v;
+	        cin>>k;
+	        int l=0,r=peak-1 ;
+    	    while(l<=r){
+                int mid = l+(r-l)/2;
+                if(k==a[mid]){
+                    v.push_back(mid+1); 
+                    break;
+                }
+                else if(k<a[mid]){
+                   r=mid-1; 
+                }
+                else{
+                    l=mid+1;
+                }
+            }
+    	     l=peak;r=n-1;
+    	    while(l<=r){
+                int mid = l+(r-l)/2;
+                if(k==a[mid]){
+                    v.push_back(mid+1); 
+                    break;
+                }
+                else if(k>a[mid]){
+                   r=mid-1; 
+                }
+                else{
+                    l=mid+1;
+                }
+            }
+            for(auto i:v){
+                cout<<i<<" ";
+            }
+            cout<<"\n";
+	    }
+	    
+	}
+	return 0;
+}

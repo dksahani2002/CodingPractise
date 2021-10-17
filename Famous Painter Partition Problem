@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int n,k;
+vector<int> v;
+int check(int x){
+    int npainter=0,time=0;
+    for(int i=0;i<n;i++){
+        if(time>=v[i]){
+            time-=v[i];
+        }
+        else{
+            npainter++;
+            time=x-v[i];
+        }
+    }
+    return npainter<=k;
+}
+signed main() {
+	int t;cin>>t;
+	while(t--){
+	    cin>>n>>k;
+	    v.resize(n);
+	    int l=0,r=0;
+	    for(int i=0;i<n;i++){
+	        cin>>v[i];
+	        r+=v[i];
+	        l=max(l,v[i]);
+	    }
+	    int ans=0;
+	    while(l<=r){
+	        int mid=l+(r-l)/2;
+	        if(check(mid)){
+	            ans=mid;
+	            r=mid-1;
+	        }
+	        else{
+	            l=mid+1;
+	        }
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}

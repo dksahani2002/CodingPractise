@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int x,y;
+	    string s;
+	    cin>>s>>x>>y;
+	    string ab="ab";
+	    string ba="ba";
+	    if(y>x){
+	        swap(x,y);
+	        string temp=ab;
+	        ab=ba;
+	        ba=temp;
+	    }
+	    int ans=0;
+	    for(int i=0;i+1<(int)s.size();i++){
+	        while(i+1 <(int)s.size() && s[i]==ab[0] && s[i+1]==ab[1]){
+	            s.erase(s.begin()+i , s.begin()+i+2);
+	            ans+=x;
+	            i--;
+	        }
+	    }
+	    for(int i=0;i+1<(int)s.size();i++){
+	        while(i+1 <(int)s.size() && s[i]==ba[0] && s[i+1]==ba[1]){
+	            s.erase(s.begin()+i , s.begin()+i+2);
+	            ans+=y;
+	            i--;
+	        }
+	    }
+	    cout<<ans<<endl;     
+	}
+	return 0;
+}

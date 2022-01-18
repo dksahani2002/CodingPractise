@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {   
+    int t;
+    cin>>t;
+    while(t--){
+        int x,y;
+        cin>>x>>y;
+        int count=0;
+        if(x>=y){
+            count = x-y; 
+        }
+        else{
+            while(y>x){
+                if(y%2){
+                    y++;
+                    count++;
+                }
+                else{
+                    y/=2;
+                    count++;
+                }
+            }
+            count+=(x-y);
+        }
+        
+        cout<<count<<endl;
+    }
+	return 0;
+}

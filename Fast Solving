@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;cin>>n;
+        int a[n+2];
+        for(int i=1;i<=n;i++)cin>>a[i];
+        a[0]=a[n+1]=1e9;
+        vector<pair<int,int>>v;
+        for(int i=1;i<=n;i++){
+            v.push_back({a[i],i});
+        }
+        sort(v.begin(),v.end());
+        int tim[n+2]={0};
+        long long int totaltime=0;
+        for(auto i:v){
+            int index=i.second;
+            int point=1;
+            if(a[index]>a[index-1]){
+                point = max(point,tim[index-1]+1);
+            }
+            if(a[index]>a[index+1]){
+                point = max(point,tim[index+1]+1);
+            }
+            tim[index]=point;
+            totaltime+=point;
+        }
+        cout<<totaltime<<endl;
+    }
+    return 0;
+}

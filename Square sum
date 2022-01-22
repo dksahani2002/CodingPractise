@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;cin>>t;
+    while(t--){
+        long long int n;cin>>n;
+        int a[n];
+        long long int sum=0;
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+            sum+=a[i];
+        }
+        double x=sum/(double)n;
+        int x1=floor(x);
+        int x2=ceil(x);
+        long long sum1=0,sum2=0;
+        for(int i=0;i<n;i++){
+            sum1+=(long long)(a[i]-x1)*(a[i]-x1);
+            sum2+=(long long)(a[i]-x2)*(a[i]-x2);
+        }
+        sum=min(sum1,sum2);
+        cout<<sum<<endl;
+    }
+}

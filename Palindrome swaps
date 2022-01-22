@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    string s;
+	    cin>>s;
+	    int c[26]={0};
+	    for(int i=0;i<n;i++){
+	        c[s[i]-'a']++;
+	    }
+	    int count=0;
+	    for(int i=0;i<26;i++){
+	        if(c[i]%2){
+	            count++;
+	        }
+	    }
+	    if(count>1){
+	        cout<<-1<<endl;
+	    }
+	     
+	    else{
+	        int ans=0;
+	        for(int i=0;i<n/2;i++){
+	            int li=i,ri=n-i-1;
+	            char left=s[li],right=s[ri];
+	            if(s[li]!=s[ri]){
+	                while(s[li]!=right && s[ri]!=left){
+	                    li++;
+	                    ri--;
+	                }
+	                if(s[li]==right){
+	                    for(int k=li;k>i;k--){
+	                        s[k]=s[k-1];
+	                        ans++;
+	                    }
+	                    s[i]=right;
+	                }
+	                else if(s[ri]==left){
+	                    for(int k=ri;k<n-i-1;k++){
+	                        s[k]=s[k+1];
+	                        ans++;
+	                    }
+	                    s[n-i-1]=left;
+	                }
+	            }
+	        }
+	        cout<<ans<<endl;
+	    }
+	}
+	return 0;
+} 
+

@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+int mat[1001][1001];
+int visited[1001];
+void dfsm(int node){
+    visited[node]=1;
+    for(int i=1;i<=n;i++){
+        if(mat[node][i] && !visited[i]){
+            dfsm(i);
+        }
+    }
+}
+vector<int>g[1001];
+int vis[1001];
+int compno[1001];
+int comp;
+void dfsg(int node ,int comp){
+    vis[node]=1;
+    compno[node]=comp;
+    for(auto i:g[node]){
+        if(!vis[i]){
+            dfsg(i,comp);
+        }
+    }
+}
+void solve(){
+    cin>>n>>m; 
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v; 
+        mat[u][v]=1;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    } 
+    comp=0;
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            comp++;
+            dfsg(i,comp);
+            
+        }
+    }
+    cout<<comp<<endl;
+}
+int main() {
+    solve();
+	return 0;
+}

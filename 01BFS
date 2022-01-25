@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+vector<pair<int,int>>g[1001];
+int dis[1001];
+
+void bfs(int st){
+    for(int i=1;i<=n;i++){
+        dis[i]=1e9;
+    }
+    dis[st]=0;
+    deque<int>q;
+    q.push_back(st);
+    while(!q.empty()){
+        int cur = q.front();q.pop_front();
+        int curdis=dis[cur];
+        for(auto v:g[cur]){
+            int neigh=v.first;
+            int weight=v.second;
+            if(dis[neigh]>curdis+weight){
+                dis[neigh]=curdis+weight;
+                if(weight==0){
+                    q.push_front(neigh);
+                }
+                else{
+                    q.push_back(neigh);
+                }
+            }
+        }
+    }
+}
+void solve(){
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int a,b,w;
+        cin>>a>>b>>w;
+        g[a].push_back({b,w});
+        g[b].push_back({a,w});
+    }
+    int st;
+    cin>>st;
+    bfs(st);
+    for(int i=1;i<=n;i++){
+        cout<<"\t"<<dis[i]<<endl;
+    }
+    
+}
+int main() {
+	solve();
+	return 0;
+}

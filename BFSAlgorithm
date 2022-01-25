@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m; 
+vector<int>g[1001];
+int dis[1001];
+ void bfs(int st){
+     for(int i=1;i<=n;i++){
+         dis[i]=1e9;
+     }
+     dis[st]=0; 
+     queue<int>q;
+     q.push(st);
+     while(!q.empty()){
+         int curnode=q.front(); q.pop();
+         int curdis=dis[curnode];
+         for(auto v:g[curnode]){
+             if(dis[v]>curdis+1){
+                 dis[v]=curdis+1;
+                 q.push(v);
+             }
+         }
+     }
+ }
+void solve(){
+    cin>>n>>m; 
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;  
+        g[u].push_back(v);
+        g[v].push_back(u);
+    } 
+    int st;cin>>st;
+    bfs(st);
+    for(int i=1;i<=n;i++){
+        cout<<dis[i]<<" ";
+    }
+}
+int main() {
+    solve();
+	return 0;
+}

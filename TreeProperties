@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+vector<int>g[100100];
+int dep[100100];
+int isleaf[100100];
+int subtreeSz[100100];
+int par[100100];
+int noofCh[100100];
+void dfs(int node , int parent , int depth){
+    dep[node]=depth;
+    par[node]=parent;
+    noofCh[node]=0;
+    subtreeSz[node]=1;
+    for(auto v:g[node]){
+        if(v!=parent){
+            noofCh[node]++;
+            dfs(v,node,depth+1);
+            subtreeSz[node]+=subtreeSz[v];
+        }
+    }
+    if(noofCh[node]==0){
+        isleaf[node]=1;
+    }
+}
+int main() {
+	cin>>n>>m;
+	for(int i=0;i<n;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+	dfs(1,0,0); 
+	for(int i=1;i<=n;i++){
+	    cout<<"node "<<i<<" "<<"isleaf[i]"<<isleaf[i]<<" "<<"dep[i]"<<dep[i]<<" "<<"subtreeSz[i]"<<subtreeSz[i]<<" "<<"par[i]"<<par[i]<<" "<<"noofCh[i]"<<noofCh[i]<<" "<<endl;
+	}
+	return 0;
+}

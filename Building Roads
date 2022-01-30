@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+vector<int>g[100100];
+int par[100100];
+int vis[100100];
+int cno[100100];  
+void dfs(int node,int parent,int comno){
+    par[node]=parent;
+    vis[node]=1;
+    cno[node]=comno; 
+    for(auto v:g[node]){
+         if(!vis[v]){
+                dfs(v,node,comno);
+            }   
+    }
+}
+int main() {
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+	int k=0;
+	for(int i=1;i<=n;i++){  
+	    if(!vis[i]){
+	        k++;
+	        dfs(i,0,k);
+	        
+	    } 
+	}
+	cout<<k-1<<endl;
+	return 0;
+}

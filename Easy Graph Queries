@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m,q;
+vector<int>g[100100];
+int par[100100];
+int vis[100100];
+int cno[100100]; 
+map<int,int>mp;
+void dfs(int node,int parent,int comno){
+    par[node]=parent;
+    vis[node]=1;
+    cno[node]=comno;
+    mp[comno]++;
+    for(auto v:g[node]){
+         if(!vis[v]){
+                dfs(v,node,comno);
+            }   
+    }
+}
+int main() {
+	cin>>n>>m>>q;
+	for(int i=0;i<m;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+	int k=0;
+	for(int i=1;i<=n;i++){  
+	    if(!vis[i]){
+	        k++;
+	        dfs(i,0,k);
+	    } 
+	} 
+	while(q--){
+	    int cas;
+	    cin>>cas;
+	    if(cas==1){
+	        int X;
+	        cin>>X;
+	        int y=cno[X];
+	        cout<<mp[y]<<endl;
+	    }
+	    else if(cas==2){
+	        int X,Y;
+	        cin>>X>>Y;
+	        if(cno[X]==cno[Y]){
+	            cout<<"YES\n";
+	        }
+	        else{
+	            cout<<"NO\n";
+	        }
+	    }
+	}
+	 
+	return 0;
+}

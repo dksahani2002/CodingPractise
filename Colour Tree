@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+vector<int>g[100100];
+int par[100100];
+int vis[100100];
+int noCh[100100]={0};  
+void dfs(int node,int parent){
+    par[node]=parent;
+    vis[node]=1; 
+    for(auto v:g[node]){ 
+        noCh[node]+=1;
+         if(!vis[v]){ 
+                dfs(v,node);
+            }   
+    }
+}
+int main() {
+	cin>>n;
+	for(int i=0;i<n-1;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+	dfs(1,0);
+	int D=0;
+	for(int i=1;i<=n;i++){
+	    D=max(D,noCh[i]);
+	}
+	cout<<D+1<<endl;
+	return 0;
+}

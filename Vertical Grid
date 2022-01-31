@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,ki;
+vector<string>g; 
+int vis[1001][1001];
+int dx[]={1,0,-1,0};
+int dy[]={0,1,0,-1};
+void gravity(){
+    for(int j=0;j<10;j++){
+        vector<int>vt;
+        for(int i=n-1;i>0;i--){
+            if(g[i][j]!='0'){
+                vt.push_back(g[i][j]);
+            }
+            g[i][j]='0';
+        }
+        int lst=n-1;
+        for(auto l:vt){
+            g[lst][j]=l;
+            lst--;
+        }
+    }
+}
+bool check(int x , int y){
+    if(x>=0 && x<n && y>=0 && y<10)return 1;
+    else return 0;
+} 
+void dfs(int i , int j ,vector<pair<int,int>>&v ){ 
+    vis[i][j]=1;
+    v.push_back(make_pair(i,j));
+    for(int k=0;k<4;k++){
+        int x= i+dx[k];
+        int y=j+dy[k];
+        if(check(x,y) && !vis[x][y] && g[i][j]==g[x][y]){
+            dfs(x,y,v);
+        }
+    } 
+}
+int main() {
+	 cin>>n>>ki;
+	 g.resize(n);
+	 for(int i=0;i<n;i++){ 
+	      cin>>g[i];   
+	      
+	 }
+	 for(int i=1;i<=n;i++){
+	     memset(vis,0,sizeof(vis));
+	     for(int i=0;i<n;i++){
+	     for(int j=0;j<10;j++){
+	         if(!vis[i][j] && g[i][j]!='0'){
+	           vector<pair<int,int>>v;
+	             dfs(i,j,v); 
+	             int t=(int)v.size();
+	             if(t>=ki){ 
+	                  for(auto i:v){
+	                      g[i.first][i.second]='0';
+	                  }
+	             }  
+	         }
+	     } 
+	 }
+	 gravity();
+	 }
+	 for(int i=0;i<n;i++){
+	     cout<<g[i]<<endl;
+	 }
+	return 0;
+}

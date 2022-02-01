@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std; 
+int n,m;
+
+vector<pair<pair<int,int>,int>>edge;
+
+
+
+// class priortise{
+//     public: bool operator()(pair<int,int>&p1 ,pair<int,int>&p2 ){
+//         return p1.second>p2.second;
+//     }
+// };
+
+int main() { 
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
+	cin>>n;
+	cin>>m; 
+	vector<pair<int,int>>g[n+1];
+	for(int i=0;i<m;i++){
+	    int a,b,c;
+	    cin>>a>>b>>c;
+	    g[a].push_back({b,c});
+	    g[b].push_back({a,c});
+	    edge.push_back({{a,b},c});
+	}
+	long long int dis[n+1];
+	int vis[n+1];
+	int sc;
+	cin>>sc; 
+	for(int i=1;i<=n;i++){
+        dis[i]=1e18; 
+        vis[i]=0;
+    }
+    dis[sc]=0;
+    priority_queue<pair<long long int,int>>pq;
+    pq.push({0,sc});
+    while(!pq.empty()){
+        int nod=pq.top().second; 
+        pq.pop();
+        if(vis[nod])continue; 
+        vis[nod]=1; 
+        for(auto v:g[nod]){
+            
+            int neigh=v.first;
+            
+            long long int wt=1LL*v.second;
+             
+            if(dis[neigh]>dis[nod]+wt){ 
+                dis[neigh]=dis[nod]+wt;
+                pq.push({-dis[neigh],neigh});
+            } 
+        }
+    }
+    long long int tim=-1e18;
+	for(auto v:edge){
+	    int a,b,c;
+	    a=v.first.first;
+	    b=v.first.second;
+	    c=v.second;
+	    tim=max(tim,5*(dis[a]+dis[b]+c) );
+	} 
+	cout<<tim<<endl;
+	return 0;
+}

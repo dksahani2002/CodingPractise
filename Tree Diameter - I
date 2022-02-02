@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+vector<int>g[200100];
+int dis[200100];
+ 
+void bfs(int sc ){
+    for(int i=1;i<=n;i++){
+        dis[i]=1e9;
+    }
+    dis[sc]=0;
+    
+    queue<int>q;
+    q.push(sc);
+    while(!q.empty()){
+        int node=q.front();q.pop(); 
+        for(auto v:g[node]){
+            if(dis[v]>dis[node]+1){
+                dis[v]=dis[node]+1;
+                q.push(v);
+            }
+        }
+    }
+}
+int main() {
+	cin>>n;
+	for(int i=1;i<n;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+	bfs(1);
+	priority_queue<pair<int,int>>pq;
+	for(int i=1;i<=n;i++){
+	   pq.push({dis[i],i});
+	}
+	int d1=pq.top().second;
+	bfs(d1);
+	int ans=0;
+	for(int i=1;i<=n;i++){
+	   ans=max(ans,dis[i]);
+	}
+	cout<<ans<<endl;
+	return 0;
+}

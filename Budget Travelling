@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+vector<pair<int,int>>g[10010];
+int p[10010];
+int vis[10001][101];
+int dis[10001][101];
+  
+int st,en,c ; 
+void bfs(int sc,int en){
+     for(int i=1;i<=n;i++){
+         for(int j=0;j<=c;j++){
+             dis[i][j]=1e9;
+             vis[i][j]=0;
+         }
+     }
+     dis[sc][0]=0;
+     priority_queue<pair<int , pair<int,int>>>pq;
+     pq.push({0,{sc,0}});
+     while(!pq.empty()){
+         int node=pq.top().second.first;
+         int fuel=pq.top().second.second;
+         int dist=-pq.top().first;
+         pq.pop();
+         if(vis[node][fuel])continue;
+         vis[node][fuel]=1;
+         if(fuel<c && dist+p[node]<dis[node][fuel+1]){
+             dis[node][fuel+1]=dist+p[node];
+             pq.push({-dis[node][fuel+1],{node,fuel+1}});
+         }
+         for(auto v:g[node]){
+             if(fuel>=v.second && dis[v.first][fuel-v.second]>dist){
+                 dis[v.first][fuel-v.second]=dist;
+                 pq.push({-dist,{v.first,fuel-v.second}});
+             }
+         }
+     }
+}
+int main() {
+	cin>>n;
+	cin>>m; 
+	memset(g,0,sizeof(g));
+	for(int i=0;i<m;i++){
+	     int a,b,c;
+	     cin>>a>>b>>c;
+	     g[a].push_back({b,c});
+	     g[b].push_back({a,c});
+	}
+	for(int i=1;i<=n;i++){
+	    cin>>p[i];
+	}
+	
+	cin>>st>>en>>c ;
+	bfs(st,en); 
+	int largest=1e9;
+	for(int i=0;i<=c;i++){
+	    largest = min(largest , dis[en][i]);
+	}
+	cout<<largest<<endl;
+	return 0;
+}

@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+int dis[502][502]; 
+int main() {
+	cin>>n;
+	for(int i=1;i<=n;i++){
+	    for(int j=1;j<=n;j++){
+	        cin>>dis[i][j]; 
+	    } 
+	}
+   int a[n+1];
+   for(int i=1;i<=n;i++){
+       cin>>a[i];
+   }
+   vector<long long>v;
+	for(int k=n;k>0;k--){
+	    for(int i=1;i<=n;i++){
+    	    for(int j=1;j<=n;j++){
+    	        dis[i][j]=min(dis[i][j] , dis[i][a[k]]+dis[a[k]][j]); 
+    	    } 
+	    }
+	    long long ans=0;
+	    for(int i=k;i<=n;i++){
+    	    for(int j=k;j<=n;j++){
+    	        ans+=1LL*dis[a[i]][a[j]]; 
+    	    } 
+	    }
+	    v.push_back(ans);
+	}
+	reverse(v.begin(),v.end());
+    for(auto it:v){
+        cout<<it<<" ";
+    }
+	 
+	return 0;
+}

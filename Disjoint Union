@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,q;
+int par[100100],ran[100100];
+int find(int v){
+    if(par[v]==-1){
+        return v;
+    }
+    return par[v]=find(par[v]);
+}
+void unite(int x , int y){
+    int apx = find(x);
+    int apy = find(y);
+    if(apx==apy){
+        return;
+    }
+    else{
+         
+        if(ran[apx]>ran[apy]){
+            par[apy]=apx;
+             
+        }
+        else if(ran[apx]<ran[apy]){
+            par[apx]=apy;
+        }
+        else {
+            par[apx]=apy;
+            ran[apy]+=1;
+        }
+    } 
+    return;
+}
+void same(int x , int y){
+    int a =find(x);
+    int b=find(y);
+    if(a==b){
+        cout<<"1\n";
+    }
+    else{
+        cout<<"0\n";
+    }
+}
+int main() {
+	cin>>n>>q;
+	for(int i=0;i<n;i++){
+	    par[i]=-1;
+	    ran[i]=0;
+	}
+	while(q--){
+	    int qno,x,y;
+	    cin>>qno>>x>>y;
+	    if(qno==0){
+	       unite(x,y); 
+	    }
+	    else{
+	       same(x,y);  
+	    }
+	}
+	return 0;
+}

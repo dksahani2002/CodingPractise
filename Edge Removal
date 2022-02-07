@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m,q;
+int par[100100],ran[100100];
+struct Edge{
+    int u;
+    int v;
+    bool s;
+};
+int find(int v){
+    if(par[v]==-1)return v;
+    return par[v]=find(par[v]);
+}
+int ttcomp;
+void uni(int x , int y){
+    //cout<<ttcomp<<" x "<<x<<" y "<<y<<endl;
+    int ax=find(x);
+    int ay=find(y);
+    if(ax==ay){
+        return;
+    }
+    else{
+        ttcomp--;
+        if(ran[ax]>ran[ay]){
+            par[ay]=ax;
+        }
+        else if(ran[ax]<ran[ay]){
+            par[ax]=ay;
+        }
+        else{
+            par[ax]=ay;
+            ran[ay]+=1;
+        }
+    }
+}
+int main() {
+	 cin>>n>>m>>q; 
+	 ttcomp=n;
+	 Edge egde[m+1];
+	 for(int i=1;i<=m;i++){
+	     cin>>egde[i].u>>egde[i].v;
+	     egde[i].s=0;
+	 }
+	 int qry[q+1];
+	 for(int i=1;i<=q;i++){
+	     int qtyp;
+	     cin>>qtyp;
+	     int egno;
+	     if(qtyp==1){
+	         cin>>egno;
+	        egde[egno].s=1;
+	        qry[i]=egno;
+	     }
+	     else{
+	         qry[i]=-1;
+	     }
+	 }
+	 
+	 for(int i=1;i<=n;i++){
+	     par[i]=-1;
+	     ran[i]=0;
+	 }
+	 for(int i=1;i<=m;i++){
+	     if(egde[i].s==0){
+	         uni(egde[i].u,egde[i].v);
+	     }
+	   //  cout<<egde[i].u,<<" "<<egde[i].v<<" "<<egde[i].s<<endl;
+	 }
+	 vector<int>vr;
+	 while(q>0){
+	     if(qry[q]!=-1){
+	         uni(egde[qry[q]].u ,egde[qry[q]].v );
+	     }
+	     else{
+	         vr.push_back(ttcomp);
+	     }
+	     q--;
+	 }
+	 reverse(vr.begin(),vr.end());
+	 for(auto it:vr){
+	     cout<<it<<endl;
+	 }
+	return 0;
+}

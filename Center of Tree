@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int>g[200200];
+int par[200200];
+//int vis[200200];
+int dep[200200];
+
+void dfs(int node , int parent,int depth){
+    //vis[node]=1;
+    par[node]=parent;
+    dep[node]=depth;
+
+    for(auto v: g[node]){
+        if(v!=parent){
+            dfs(v,node,depth+1);
+        }
+    }
+}
+
+int main() {
+    int n;
+	cin>>n;
+	for(int i=1;i<n;i++){
+	    int a,b;
+	    cin>>a>>b;
+	    g[a].push_back(b);
+	    g[b].push_back(a);
+	}
+// 	memset(vis,0,sizeof(vis));
+// 	memset(par,0,sizeof(par));
+// 	memset(dep,0,sizeof(dep));
+	dfs(1,0,0);
+	int nd=1;
+	for(int i=1;i<=n;i++){
+	    if(dep[i]>dep[nd]){
+	        nd=i;
+	    }
+	}
+
+	dfs(nd,0,0);  
+	for(int i=1;i<=n;i++){
+	    if(dep[i]>dep[nd]){
+	        nd=i;
+	    }
+	}
+	int d=dep[nd];
+	if(d%2==1){
+	    cout<<-1<<endl;
+	}
+	else{
+	    int center=nd;
+        int kj=d/2;
+    	for(int i=0;i<kj;i++){
+    	    center=par[center]; 
+    	}
+    	cout<<center<<endl;
+	}
+	return 0;
+}

@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m; 
+vector<int>g[200100],bg[200100];
+int par[200100];
+int dp[200100];
+int indeg[200100];
+//vector<int>ts;
+
+// void dfs(int node , int parent){
+//     par[node]=parent; 
+    
+//     for(auto v:g[node]){
+//         if(v!=parent){
+//             dfs(v,node); 
+//         }
+//     } 
+    
+// }
+void kahn(){
+    queue<int>q;
+    for(int i=1;i<=n;i++){
+        if(indeg[i]==0){
+            q.push(i);
+            // cout<<i<<endl;
+        }
+    }
+    while(!q.empty()){
+        int nd = q.front();
+        q.pop();
+        //ts.push_back(nd);
+        // cout<<nd<<endl;
+        for(auto v:g[nd]){
+            indeg[v]--;
+            if(indeg[v]==0){
+                q.push(v);
+            }
+        }
+       for(auto u : bg[nd]){
+            dp[nd]=(dp[u]+dp[nd])%1000000007;
+        } 
+    }
+        
+}
+int main() {
+	cin>>n>>m;
+	
+	for(int i=1;i<=n;i++){
+	    indeg[i]=0;
+	    dp[i]=0;
+	}
+	dp[1]=1;
+	for(int i=1;i<=m;i++){
+	    int a,b;
+	    cin>>a>>b; 
+	    g[a].push_back(b);
+	    bg[b].push_back(a);
+	    indeg[b]+=1;
+	    
+	}  
+	kahn();
+	//dfs(1,0);
+	cout<<dp[n]<<endl;
+	return 0;
+}

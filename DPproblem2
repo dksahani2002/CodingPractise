@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+int v[100100];
+int h[100100];
+int n,bud,k,ans=0;
+int dp[101][1001];
+ 
+int rec(int level, int leftvol){
+    if(leftvol<0)return 0;
+    if(leftvol==0)return 1;
+    if(level==n){ 
+        if(leftvol==0){
+            return 1; 
+        }
+        else{
+            return 0;
+        }
+        
+    }
+    if(dp[level][leftvol]!=-1){
+        return dp[level][leftvol];
+    }
+    int ans= (rec(level+1 , leftvol) || rec(level+1 ,  leftvol-v[level]));
+    return dp[level][leftvol]=ans;
+    
+}
+
+int main() { 
+	cin>>n;
+	for(int i=0;i<n;i++){
+	    cin>>v[i];
+	}
+	memset(dp,-1,sizeof(dp));
+	int q;cin>>q;
+	for(int i=0;i<q;i++){
+	   int x;
+	   cin>>x;
+	  cout<<rec(0,x)<<endl;
+	} 
+	 
+	//cout<<ans<<endl;
+	return 0;
+}

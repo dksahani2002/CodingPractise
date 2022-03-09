@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int mod =1e9+7;
+#define int long long
+signed main(){
+    
+    int t;
+    cin>>t;
+    while(t--){ 
+        int n,m;
+        cin>>n>>m;
+        
+        int arr[n][m];  
+        
+        for(int i=0;i<n;++i){
+             for(int j=0;j<m;++j){
+                 cin>>arr[i][j];
+             }
+        }
+        int maxsum=-2e18;
+        
+        if(n>=m){
+              int kad[n]; 
+                for(int l=0;l<m;l++){ 
+                 memset(kad,0,sizeof(kad));
+                for(int r=l;r<m;r++){
+                    int tempsum=0,flag=1;
+                    
+                    for(int i=0;i<n;i++){
+                        kad[i]+=arr[i][r];
+                        if(arr[i][r]>=0){
+                            flag=0;
+                        }
+                    }
+                    
+                    for(int i=0;i<n;i++){
+                        tempsum+=kad[i];
+                        if(maxsum<tempsum){
+                            maxsum=tempsum; 
+                        } 
+                        if(tempsum<0){ 
+                            tempsum=0;
+                        }
+                    }
+                    if(flag){
+                        int ma=-1e9;
+                        for(int i=0;i<n;i++){
+                            ma=max(ma,kad[i]);
+                        }
+                        maxsum=max(ma,maxsum);
+                    }
+                }
+            }
+        }
+        else{
+            int kad[m];
+            for(int l=0;l<n;l++){ 
+            memset(kad,0,sizeof(kad));
+            for(int r=l;r<n;r++){
+                int tempsum=0,flag=1;
+                for(int i=0;i<m;i++){
+                    kad[i]+=arr[r][i];
+                    if(arr[r][i]>=0){
+                        flag=0;
+                    }
+                }
+                
+                for(int i=0;i<m;i++){
+                    tempsum+=kad[i];
+                    if(maxsum<tempsum){
+                        maxsum=tempsum; 
+                    } 
+                    if(tempsum<0){ 
+                        tempsum=0;
+                    }
+                }
+                if(flag){
+                    int ma=-1e9;
+                    for(int i=0;i<m;i++){
+                        ma=max(ma,kad[i]);
+                    }
+                    maxsum=max(ma,maxsum);
+                }
+            }
+        } 
+        }
+        cout<<maxsum<<endl;
+        // maxsum=-1e9;
+    }
+    return 0;
+}
